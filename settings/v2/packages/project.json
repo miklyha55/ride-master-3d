@@ -1,0 +1,46 @@
+{
+  "general": {
+    "designResolution": {
+      "width": 600,
+      "height": 600,
+      "fitHeight": true,
+      "fitWidth": true
+    }
+  },
+  "physics": {
+    "gravity": {
+      "y": -980
+    },
+    "collisionGroups": [
+      {
+        "index": 1,
+        "name": "MASHINE"
+      },
+      {
+        "index": 2,
+        "name": "PLATFORM"
+      },
+      {
+        "index": 3,
+        "name": "CRASH"
+      },
+      {
+        "index": 4,
+        "name": "BASE_COLLIDER"
+      }
+    ],
+    "collisionMatrix": {
+      "0": 19,
+      "1": 1,
+      "2": 16,
+      "3": 16,
+      "4": 13
+    }
+  },
+  "layer": [
+    {
+      "name": "BG",
+      "value": 1
+    }
+  ]
+}
