@@ -14,6 +14,7 @@ const GameEvents = Enum({
     TOGGLE_HAND: 100,
     SHOW_HAND: 110,
     INC_BAR_NUMBER: 120,
+    COMPLETE: 130,
 });
 
 export default GameEvents;

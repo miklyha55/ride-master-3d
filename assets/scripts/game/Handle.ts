@@ -22,13 +22,13 @@ export class Handle extends Component {
         view[func](GameEvents.STOP, this.onStop, this);
     }
 
-    onMove(positionY: number) {
+    private onMove(positionY: number) {
         if (this.node) {
             this.node.position = v3(0, positionY * this.positionYXN, 0);
         }
     }
 
-    onStop(positionY: number) {
+    private onStop(positionY: number) {
         tween(this.node)
             .to(0.2, { position: v3(0, positionY, 0) })
             .start();

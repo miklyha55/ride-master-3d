@@ -1,5 +1,5 @@
 import GameEvents from "../enums/GameEvents";
-import { _decorator, v3, view, BoxCollider, Component, RigidBody } from "cc";
+import { _decorator, v3, view, AudioSource, BoxCollider, Component, RigidBody } from "cc";
 
 const { ccclass } = _decorator;
 
@@ -11,6 +11,9 @@ export class Coin extends Component {
     }
 
     private onTriggerEnter() {
+        this.node.getComponent(AudioSource).play();
+        view.emit(GameEvents.INC_BAR_NUMBER);
+        
         this.node
             .getComponent(RigidBody)
             .getComponent(RigidBody)
@@ -18,7 +21,6 @@ export class Coin extends Component {
 
         this.scheduleOnce(() => {
             this.node.destroy();
-            view.emit(GameEvents.INC_BAR_NUMBER);
         }, 1);
     }
 }

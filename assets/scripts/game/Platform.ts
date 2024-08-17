@@ -1,4 +1,4 @@
-import { _decorator, BoxCollider, Component, RigidBody } from "cc";
+import { _decorator, AudioSource, BoxCollider, Component, RigidBody } from "cc";
 
 const { ccclass, property } = _decorator;
 
@@ -13,6 +13,8 @@ export class Platform extends Component {
 
     private onTriggerEnter() {
         this.scheduleOnce(() => {
+            this.node.getComponent(AudioSource).play();
+
             this.node.getComponent(RigidBody).linearDamping = 0.1;
             this.node.getComponent(RigidBody).angularDamping = 0.1;
 

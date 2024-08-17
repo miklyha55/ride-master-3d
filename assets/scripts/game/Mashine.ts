@@ -4,8 +4,9 @@ import {
     v3,
     view,
     randomRange,
-    Node,
+    AudioSource,
     Component,
+    Node,
     RigidBody,
     Vec3,
     ITriggerEvent,
@@ -30,6 +31,7 @@ export class Mashine extends Component {
 
     private _isComplete: boolean = false;
     private _isMove: boolean = false;
+    private _audioSources: AudioSource[] = [];
 
     onEnable() {
         this._handleSubscription(true);
@@ -43,21 +45,23 @@ export class Mashine extends Component {
         if (this._isMove && !this._isComplete) {
             this._updateSpeed();
             this._updateWheelsRotation();
+            this._engineValume();
         }
     }
 
     start() {
         const collider: BoxCollider = this.node.getComponent(BoxCollider);
         collider.on("onTriggerEnter", this.onTriggerEnter, this);
+
+        this._audioSources = this.node.getComponents(AudioSource);
     }
 
     private onTriggerEnter(event: ITriggerEvent) {
         if (event.otherCollider.node.name === "Crash") {
-            view.emit(GameEvents.TOGGLE_UI_ELEMENTS, false);
+            view.emit(GameEvents.COMPLETE);
 
-            this.scheduleOnce(() => {
-                view.emit(GameEvents.TOGGLE_PACKSHOT, true);
-            }, 1);
+            this._audioSources[0].stop();
+            this._audioSources[1].play();
 
             this._isComplete = true;
             this._stop();
@@ -86,6 +90,10 @@ export class Mashine extends Component {
     private _stop() {
         this._isMove = false;
         this.node.getComponent(RigidBody).setLinearVelocity(v3(0, 0, 0));
+    }
+
+    private _engineValume() {
+        this._audioSources[0].volume = this._speed / 100;
     }
 
     private _updateSpeed() {
@@ -149,11 +157,13 @@ export class Mashine extends Component {
     }
 
     private onStart() {
+        this._audioSources[0].play();
         this.unschedule(this._braking);
         this._isMove = true;
     }
 
     private onStop() {
+        this._audioSources[0].stop();
         this.schedule(this._braking, 0.001);
     }
 
