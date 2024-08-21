@@ -1,5 +1,5 @@
 import GameEvents from "../enums/GameEvents";
-import { _decorator, view, Component, Label } from "cc";
+import { _decorator, view, Animation, Component, Label } from "cc";
 
 const { ccclass, property } = _decorator;
 
@@ -31,5 +31,9 @@ export class BarNumber extends Component {
         if (this.label) {
             this.label.string = String(this._value);
         }
+
+        const animation: Animation = this.node.getComponent(Animation);
+
+        animation && animation.play();
     }
 }

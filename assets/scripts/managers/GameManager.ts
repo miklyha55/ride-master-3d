@@ -23,15 +23,22 @@ export class GameManager extends Component {
     }
 
     onRedirect() {
-        const userAgent: string =
-            window.navigator.userAgent || window.navigator.vendor;
-        const isAndroid: boolean = /android/i.test(userAgent);
-        const url = isAndroid ? this.iosUrl : this.androidUrl;
+        window.postMessage(
+            {
+                type: "download",
+                urls: {
+                    androidUrl: this.androidUrl,
+                    iosUrl: this.iosUrl,
+                },
+            },
+            "*"
+        );
 
-        if (isAndroid) {
-            window.open(url, "_blank");
-        } else {
-            window.location.href = url;
-        }
+        window.postMessage(
+            {
+                type: "completed",
+            },
+            "*"
+        );
     }
 }

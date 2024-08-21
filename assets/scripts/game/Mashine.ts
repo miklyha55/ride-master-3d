@@ -71,7 +71,7 @@ export class Mashine extends Component {
 
                 body.enabled = true;
                 body.getComponent(RigidBody).setLinearVelocity(
-                    v3(randomRange(-150, 150), randomRange(0, -100), 0)
+                    v3(randomRange(-150, 150), randomRange(40, -100), 0)
                 );
 
                 part.getComponent(BoxCollider).enabled = true;
@@ -139,11 +139,7 @@ export class Mashine extends Component {
     }
 
     private _speedToRotation(speed: number, axis: Vec3, rotationXN: number) {
-        return v3(
-            axis.x * speed * rotationXN,
-            axis.y * speed * rotationXN,
-            axis.z * speed * rotationXN
-        );
+        return axis.multiplyScalar(speed).multiplyScalar(rotationXN);
     }
 
     private _braking() {

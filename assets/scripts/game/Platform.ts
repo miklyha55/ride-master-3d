@@ -13,7 +13,7 @@ export class Platform extends Component {
 
     private onTriggerEnter() {
         this.scheduleOnce(() => {
-            this.node.getComponent(AudioSource).play();
+            this.node.parent.getComponent(AudioSource).play();
 
             this.node.getComponent(RigidBody).linearDamping = 0.1;
             this.node.getComponent(RigidBody).angularDamping = 0.1;

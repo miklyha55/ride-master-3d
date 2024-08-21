@@ -1,5 +1,5 @@
 import GameEvents from "../enums/GameEvents";
-import { _decorator, v3, view, AudioSource, BoxCollider, Component, RigidBody } from "cc";
+import { _decorator, v3, view, AudioSource, BoxCollider, Component } from "cc";
 
 const { ccclass } = _decorator;
 
@@ -11,16 +11,12 @@ export class Coin extends Component {
     }
 
     private onTriggerEnter() {
-        this.node.getComponent(AudioSource).play();
-        view.emit(GameEvents.INC_BAR_NUMBER);
-        
-        this.node
-            .getComponent(RigidBody)
-            .getComponent(RigidBody)
-            .setLinearVelocity(v3(0, 300, 0));
+        this.node.parent.getComponent(AudioSource).play();
 
-        this.scheduleOnce(() => {
-            this.node.destroy();
-        }, 1);
+        view.emit(GameEvents.MOVE_TO_BAR, v3(100, 100, 0), () => {
+            view.emit(GameEvents.INC_BAR_NUMBER);
+        });
+
+        this.node.destroy();
     }
 }

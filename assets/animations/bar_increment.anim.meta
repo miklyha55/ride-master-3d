@@ -2,12 +2,12 @@
   "ver": "2.0.3",
   "importer": "animation-clip",
   "imported": true,
-  "uuid": "e198b5d5-05bf-4cce-ae3a-f202dc124d3f",
+  "uuid": "c01e9f56-ea5e-4095-b062-98866fa031b5",
   "files": [
     ".cconb"
   ],
   "subMetas": {},
   "userData": {
-    "name": "loopRotationY"
+    "name": "bar_increment"
   }
 }
