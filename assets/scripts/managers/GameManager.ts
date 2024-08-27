@@ -3,6 +3,17 @@ import { _decorator, view, Component } from "cc";
 
 const { ccclass, property } = _decorator;
 
+interface Urls {
+    androidUrl: string;
+    iosUrl: string;
+}
+
+declare global {
+    interface Window {
+        callSDK: (urls: Urls) => void
+    }
+}
+
 @ccclass("GameManager")
 export class GameManager extends Component {
     @property({}) iosUrl: string = "";
@@ -23,22 +34,9 @@ export class GameManager extends Component {
     }
 
     onRedirect() {
-        window.postMessage(
-            {
-                type: "download",
-                urls: {
-                    androidUrl: this.androidUrl,
-                    iosUrl: this.iosUrl,
-                },
-            },
-            "*"
-        );
-
-        window.postMessage(
-            {
-                type: "completed",
-            },
-            "*"
-        );
+        window.callSDK({
+            androidUrl: this.androidUrl,
+            iosUrl: this.iosUrl,
+        });
     }
 }
