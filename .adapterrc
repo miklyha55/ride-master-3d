@@ -1,0 +1,10 @@
+{
+  "exportChannels": ["Unity"],
+  "buildPlatform": "web-mobile",
+  "orientation": "auto",
+  "injectOptions": {
+    "Unity": {
+      "body": "<script>var isMraidReady=false;try{if(mraid.getState()==='loading'){mraid.addEventListener('ready',mraidReadyHandler);}else{mraidReadyHandler();}}catch(e){}function mraidReadyHandler(){mraid.removeEventListener('ready',mraidReadyHandler);isMraidReady=true;}function callSDK(urls){var userAgent=navigator.userAgent||navigator.vendor;var isAndroid=/android/i.test(userAgent);var url=isAndroid?urls.androidUrl:urls.iosUrl;if(isMraidReady){mraid.open(url);}else{if(isAndroid){window.open(url,'_blank');}else{window.location.href=url;}}}window.callSDK = callSDK;</script>"
+    }
+  }
+}
